@@ -13,39 +13,34 @@
             font-family: 'Inter', sans-serif;
             background-color: #0d1117;
             color: #c9d1d9;
+            overflow-x: hidden;
         }
         .github-card {
             background-color: #161b22;
             border: 1px solid #30363d;
             border-radius: 6px;
         }
-        .code-font { font-family: 'Fira Code', monospace; }
         .nav-border { border-bottom: 1px solid #30363d; }
+        .tab-active {
+            color: #f0f6fc;
+            border-bottom: 2px solid #f78166;
+        }
+        .btn-green { background-color: #238636; color: white; }
+        .btn-green:hover { background-color: #2ea043; }
         
-        .btn-primary {
-            background-color: #238636;
-            color: #ffffff;
-            transition: background-color 0.2s;
-        }
-        .btn-primary:hover {
-            background-color: #2ea043;
-        }
-
-        .sim-card {
-            transition: transform 0.2s, border-color 0.2s;
-        }
-        .sim-card:hover {
-            transform: translateY(-2px);
-            border-color: #58a6ff;
-        }
-
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0d1117; }
+        ::-webkit-scrollbar-thumb { background: #30363d; border-radius: 10px; }
+        
         .status-pill {
             font-size: 10px;
             padding: 2px 8px;
             border-radius: 12px;
             font-weight: 600;
-            text-transform: uppercase;
         }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
     </style>
 </head>
 <body>
@@ -61,159 +56,280 @@
                 <span class="ml-3 border border-[#30363d] px-2 py-0.5 rounded-full text-xs text-[#8b949e]">Public</span>
             </div>
         </div>
-        <div class="flex gap-4 text-sm font-medium text-[#c9d1d9]">
-            <span class="hover:text-white cursor-pointer"><i class="fa-regular fa-eye mr-1"></i> Watch</span>
-            <span class="hover:text-white cursor-pointer"><i class="fa-regular fa-star mr-1"></i> Star</span>
-            <span class="hover:text-white cursor-pointer"><i class="fa-solid fa-code-fork mr-1"></i> Fork</span>
+        <div class="flex gap-6 items-center">
+            <div class="flex gap-4 text-xs font-medium text-[#c9d1d9]">
+                <span><i class="fa-regular fa-star mr-1"></i> 12</span>
+                <span><i class="fa-solid fa-code-fork mr-1"></i> 4</span>
+            </div>
+            <div class="h-8 w-8 rounded-full bg-gradient-to-tr from-blue-500 to-purple-500 border border-slate-700"></div>
         </div>
     </nav>
 
-    <!-- Project Overview -->
-    <main class="max-w-6xl mx-auto px-8 py-10">
+    <!-- Main Dashboard -->
+    <main class="max-w-6xl mx-auto px-4 lg:px-8 py-8">
         
-        <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
-            
-            <!-- Sidebar: Metadata -->
-            <div class="lg:col-span-1 space-y-8">
-                <div>
-                    <h3 class="text-white font-semibold mb-3">About</h3>
-                    <p class="text-sm leading-relaxed mb-4">
-                        5G Monetization & Digital Decoupling strategy for Eurotel. Implementing TMF Open APIs and Cloud-Native Rating Engines.
-                    </p>
-                    <div class="space-y-2 text-xs">
-                        <div class="flex items-center gap-2"><i class="fa-solid fa-link text-[#8b949e]"></i> <span class="text-[#58a6ff]">lotusflare.com/eurotel-5g</span></div>
-                        <div class="flex items-center gap-2"><i class="fa-solid fa-tag text-[#8b949e]"></i> <span>v1.0.0-MVP</span></div>
-                        <div class="flex items-center gap-2"><i class="fa-solid fa-scale-balanced text-[#8b949e]"></i> <span>MIT License</span></div>
-                    </div>
-                </div>
-
-                <div class="pt-4 border-t border-[#30363d]">
-                    <h3 class="text-white font-semibold mb-3">Languages</h3>
-                    <div class="w-full h-2 rounded-full overflow-hidden flex mb-2">
-                        <div class="h-full bg-[#f1e05a]" style="width: 60%"></div>
-                        <div class="h-full bg-[#563d7c]" style="width: 30%"></div>
-                        <div class="h-full bg-[#e34c26]" style="width: 10%"></div>
-                    </div>
-                    <div class="grid grid-cols-2 gap-y-2 text-[10px] font-bold">
-                        <div class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-[#f1e05a]"></span> JavaScript 60%</div>
-                        <div class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-[#563d7c]"></span> CSS 30%</div>
-                        <div class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-[#e34c26]"></span> HTML 10%</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Main Content: Simulations Gallery -->
-            <div class="lg:col-span-3">
-                <div class="flex items-center gap-4 mb-6 border-b border-[#30363d] pb-2">
-                    <span class="text-white font-semibold border-b-2 border-[#f78166] pb-2"><i class="fa-solid fa-vial mr-2"></i>Simulations</span>
-                    <span class="text-[#8b949e] pb-2 hover:text-white cursor-pointer"><i class="fa-solid fa-book-open mr-2"></i>Documentation</span>
-                    <span class="text-[#8b949e] pb-2 hover:text-white cursor-pointer"><i class="fa-solid fa-shield-halved mr-2"></i>Security</span>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    
-                    <!-- Simulation Card 1: PII Masking -->
-                    <div class="github-card p-5 sim-card group">
-                        <div class="flex justify-between items-start mb-3">
-                            <div class="flex items-center gap-2">
-                                <i class="fa-solid fa-mask text-[#58a6ff] text-xl"></i>
-                                <h4 class="text-white font-bold group-hover:text-[#58a6ff] transition-colors">Privacy X-Ray (PII Masking)</h4>
-                            </div>
-                            <span class="status-pill bg-[#238636]/20 text-[#3fb950] border border-[#238636]/30">Live</span>
-                        </div>
-                        <p class="text-xs text-[#8b949e] mb-6 leading-relaxed">
-                            A high-fidelity simulation of the 5G data journey. Demonstrates real-time tokenization of MSISDNs at the Mediation layer before cloud ingestion.
-                        </p>
-                        <a href="https://github.com/mustafaquadri/BSS/PIImask/index.html" target="_blank" class="btn-primary w-full inline-flex items-center justify-center py-2 rounded font-bold text-xs uppercase tracking-wider">
-                            <i class="fa-solid fa-play mr-2"></i> Run Simulation
-                        </a>
-                    </div>
-
-                    <!-- Simulation Card 2: Rating Engine -->
-                    <div class="github-card p-5 opacity-60">
-                        <div class="flex justify-between items-start mb-3">
-                            <div class="flex items-center gap-2">
-                                <i class="fa-solid fa-bolt text-yellow-500 text-xl"></i>
-                                <h4 class="text-white font-bold">Real-time Rating Engine</h4>
-                            </div>
-                            <span class="status-pill bg-[#8b949e]/20 text-[#8b949e] border border-[#8b949e]/30">Planned</span>
-                        </div>
-                        <p class="text-xs text-[#8b949e] mb-6 leading-relaxed">
-                            Simulates the LotusFlare DNO™ logic for geofenced stadium boosts and dynamic congestion pricing based on Cell-ID.
-                        </p>
-                        <button disabled class="bg-[#30363d] text-[#8b949e] w-full py-2 rounded font-bold text-xs uppercase tracking-wider cursor-not-allowed">
-                            Locked
-                        </button>
-                    </div>
-
-                    <!-- Simulation Card 3: TMF API Wrapper -->
-                    <div class="github-card p-5 opacity-60">
-                        <div class="flex justify-between items-start mb-3">
-                            <div class="flex items-center gap-2">
-                                <i class="fa-solid fa-diagram-project text-indigo-400 text-xl"></i>
-                                <h4 class="text-white font-bold">TMF API Gateway</h4>
-                            </div>
-                            <span class="status-pill bg-[#8b949e]/20 text-[#8b949e] border border-[#8b949e]/30">Development</span>
-                        </div>
-                        <p class="text-xs text-[#8b949e] mb-6 leading-relaxed">
-                            Validates TMF 622/635/678 contract integrity between the cloud engine and Eurotel's legacy billing systems.
-                        </p>
-                        <button disabled class="bg-[#30363d] text-[#8b949e] w-full py-2 rounded font-bold text-xs uppercase tracking-wider cursor-not-allowed">
-                            In Progress
-                        </button>
-                    </div>
-
-                    <!-- Add New Section -->
-                    <div class="border-2 border-dashed border-[#30363d] rounded-lg p-5 flex flex-col items-center justify-center text-[#8b949e] hover:border-[#58a6ff] hover:text-[#58a6ff] cursor-pointer transition-colors">
-                        <i class="fa-solid fa-plus text-2xl mb-2"></i>
-                        <span class="text-xs font-bold uppercase tracking-tighter">Add Simulation Prototype</span>
-                    </div>
-
-                </div>
-
-                <!-- Recent Activity / Commit-like list -->
-                <div class="mt-12">
-                    <h3 class="text-white font-semibold mb-4 flex items-center gap-2">
-                        <i class="fa-solid fa-clock-rotate-left"></i> Project Activity
-                    </h3>
-                    <div class="github-card overflow-hidden">
-                        <div class="p-4 border-b border-[#30363d] flex justify-between items-center text-xs">
-                            <div class="flex items-center gap-3">
-                                <span class="text-white font-bold">lotusflare-bot</span>
-                                <span class="text-[#8b949e]">feat: finalized PII Masking logic for MVP</span>
-                            </div>
-                            <span class="text-[#8b949e]">1 hour ago</span>
-                        </div>
-                        <div class="p-4 border-b border-[#30363d] flex justify-between items-center text-xs">
-                            <div class="flex items-center gap-3">
-                                <span class="text-white font-bold">eurotel-arch</span>
-                                <span class="text-[#8b949e]">docs: updated TMF 635 schema mapping</span>
-                            </div>
-                            <span class="text-[#8b949e]">Yesterday</span>
-                        </div>
-                        <div class="p-4 flex justify-between items-center text-xs">
-                            <div class="flex items-center gap-3">
-                                <span class="text-white font-bold">admin</span>
-                                <span class="text-[#8b949e]">initial commit: created BSS core repository</span>
-                            </div>
-                            <span class="text-[#8b949e]">3 days ago</span>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
+        <!-- Tab Navigation -->
+        <div class="flex items-center gap-8 mb-8 border-b border-[#30363d]">
+            <button onclick="switchTab('simulations')" id="tab-simulations" class="pb-3 text-sm font-medium flex items-center gap-2 tab-active transition-all">
+                <i class="fa-solid fa-vial text-slate-400"></i> Simulations
+            </button>
+            <button onclick="switchTab('documents')" id="tab-documents" class="pb-3 text-sm font-medium flex items-center gap-2 text-[#8b949e] hover:text-white transition-all">
+                <i class="fa-solid fa-book-open text-slate-400"></i> Documents
+            </button>
+            <button onclick="switchTab('jira')" id="tab-jira" class="pb-3 text-sm font-medium flex items-center gap-2 text-[#8b949e] hover:text-white transition-all">
+                <i class="fa-solid fa-layer-group text-slate-400"></i> Project Management
+            </button>
         </div>
+
+        <!-- TABS CONTENT -->
+
+        <!-- 1. SIMULATIONS TAB -->
+        <section id="content-simulations" class="tab-content active animate-in fade-in duration-300">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- PII Masking Card -->
+                <div class="github-card p-6 flex flex-col h-64 shadow-xl">
+                    <div class="flex justify-between items-start mb-4">
+                        <div class="h-10 w-10 bg-blue-500/10 rounded flex items-center justify-center">
+                            <i class="fa-solid fa-mask text-blue-400"></i>
+                        </div>
+                        <span class="status-pill bg-green-500/10 text-green-400 border border-green-500/20 uppercase tracking-tighter">Live</span>
+                    </div>
+                    <h4 class="text-white font-bold text-lg mb-2">Privacy X-Ray (PII Masking)</h4>
+                    <p class="text-xs text-[#8b949e] mb-auto leading-relaxed">
+                        Interactive journey of a 5G data packet. Demonstrates real-time tokenization of MSISDNs at the Mediation layer before cloud ingestion.
+                    </p>
+                    <a href="https://mustafaquadri.github.io/BSS/PIImask/index.html" target="_blank" class="btn-green w-full py-2.5 rounded font-bold text-xs uppercase tracking-widest text-center mt-4">
+                        <i class="fa-solid fa-play mr-2"></i> Launch Prototype
+                    </a>
+                </div>
+
+                <!-- Planned Card -->
+                <div class="github-card p-6 flex flex-col h-64 border-dashed opacity-50">
+                    <div class="h-10 w-10 bg-yellow-500/10 rounded flex items-center justify-center">
+                        <i class="fa-solid fa-bolt text-yellow-500"></i>
+                    </div>
+                    <h4 class="text-white font-bold text-lg mb-2">Real-time Rating Engine</h4>
+                    <p class="text-xs text-[#8b949e] mb-auto leading-relaxed">
+                        Logic for geofenced stadium boosts and dynamic congestion pricing based on real-time Cell-ID events.
+                    </p>
+                    <div class="text-center text-[10px] font-black uppercase text-slate-600 mt-4">Development Planned</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 2. DOCUMENTS TAB -->
+        <section id="content-documents" class="tab-content animate-in fade-in duration-300">
+            <div class="github-card overflow-hidden">
+                <div class="bg-[#161b22] px-6 py-4 border-b border-[#30363d] flex justify-between items-center">
+                    <h4 class="text-white font-bold text-sm">Transformation Artifacts</h4>
+                    <input type="text" placeholder="Search docs..." class="bg-[#0d1117] border border-[#30363d] rounded px-3 py-1 text-xs focus:outline-none focus:border-[#58a6ff] w-48">
+                </div>
+                <div class="divide-y divide-[#30363d]">
+                    <!-- Doc Item -->
+                    <div class="px-6 py-4 hover:bg-[#1f242c] transition-colors flex items-center justify-between group">
+                        <div class="flex items-center gap-4">
+                            <i class="fa-regular fa-file-lines text-slate-400 text-lg"></i>
+                            <div>
+                                <p class="text-sm font-semibold text-white group-hover:text-[#58a6ff]">Target_State_Architecture.md</p>
+                                <p class="text-[10px] text-slate-500 uppercase font-bold">5G Monetization Engine & Bridge Layer</p>
+                            </div>
+                        </div>
+                        <span class="text-xs text-slate-500">Updated 2h ago</span>
+                    </div>
+                    <!-- Doc Item -->
+                    <div class="px-6 py-4 hover:bg-[#1f242c] transition-colors flex items-center justify-between group">
+                        <div class="flex items-center gap-4">
+                            <i class="fa-regular fa-file-code text-slate-400 text-lg"></i>
+                            <div>
+                                <p class="text-sm font-semibold text-white group-hover:text-[#58a6ff]">API_Specification_TMF_Open.html</p>
+                                <p class="text-[10px] text-slate-500 uppercase font-bold">REST Contracts for TMF 622 / 635</p>
+                            </div>
+                        </div>
+                        <span class="text-xs text-slate-500">Updated Yesterday</span>
+                    </div>
+                    <!-- Doc Item -->
+                    <div class="px-6 py-4 hover:bg-[#1f242c] transition-colors flex items-center justify-between group">
+                        <div class="flex items-center gap-4">
+                            <i class="fa-regular fa-file-excel text-slate-400 text-lg"></i>
+                            <div>
+                                <p class="text-sm font-semibold text-white group-hover:text-[#58a6ff]">Requirement_Traceability_Matrix.xlsx</p>
+                                <p class="text-[10px] text-slate-500 uppercase font-bold">Functional & Non-Functional Traceability</p>
+                            </div>
+                        </div>
+                        <span class="text-xs text-slate-500">Updated 3 days ago</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. JIRA / PROJECT MANAGEMENT TAB -->
+        <section id="content-jira" class="tab-content animate-in fade-in duration-300">
+            <div class="flex flex-col gap-6">
+                <!-- Add Task Interface -->
+                <div class="github-card p-6 bg-[#0d1117] border-blue-500/30">
+                    <div class="flex flex-wrap gap-4 items-end">
+                        <div class="flex-1 min-w-[200px]">
+                            <label class="block text-[10px] font-black text-slate-500 uppercase mb-1">New Activity</label>
+                            <input type="text" id="task-name" placeholder="Enter task description..." class="w-full bg-[#161b22] border border-[#30363d] rounded px-4 py-2 text-sm text-white focus:outline-none focus:border-[#58a6ff]">
+                        </div>
+                        <div class="w-48">
+                            <label class="block text-[10px] font-black text-slate-500 uppercase mb-1">Assignee</label>
+                            <select id="task-assignee" class="w-full bg-[#161b22] border border-[#30363d] rounded px-4 py-2 text-sm text-white focus:outline-none">
+                                <option>Eurotel CTO</option>
+                                <option>Chief Architect</option>
+                                <option>Eurotel DPO</option>
+                                <option>LotusFlare Engineering</option>
+                                <option>Marketing Lead</option>
+                            </select>
+                        </div>
+                        <button onclick="addTask()" class="btn-green px-6 py-2 rounded font-bold text-sm h-[38px]">
+                            <i class="fa-solid fa-plus mr-1"></i> Add Task
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Kanban Board -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 h-[500px]">
+                    <!-- Column: Backlog -->
+                    <div class="flex flex-col gap-3">
+                        <div class="flex justify-between items-center px-2">
+                            <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Backlog</span>
+                            <span id="count-todo" class="bg-[#30363d] text-white text-[10px] px-2 py-0.5 rounded-full">0</span>
+                        </div>
+                        <div id="col-todo" class="flex-1 bg-[#161b22]/50 border border-[#30363d] rounded-lg p-3 overflow-y-auto space-y-3">
+                            <!-- Tasks injected here -->
+                        </div>
+                    </div>
+
+                    <!-- Column: In Progress -->
+                    <div class="flex flex-col gap-3">
+                        <div class="flex justify-between items-center px-2">
+                            <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">In Progress</span>
+                            <span id="count-doing" class="bg-blue-600 text-white text-[10px] px-2 py-0.5 rounded-full">0</span>
+                        </div>
+                        <div id="col-doing" class="flex-1 bg-[#161b22]/50 border border-[#30363d] rounded-lg p-3 overflow-y-auto space-y-3">
+                            <!-- Tasks injected here -->
+                        </div>
+                    </div>
+
+                    <!-- Column: Done -->
+                    <div class="flex flex-col gap-3">
+                        <div class="flex justify-between items-center px-2">
+                            <span class="text-xs font-bold text-slate-400 uppercase tracking-widest">Done</span>
+                            <span id="count-done" class="bg-green-600 text-white text-[10px] px-2 py-0.5 rounded-full">0</span>
+                        </div>
+                        <div id="col-done" class="flex-1 bg-[#161b22]/50 border border-[#30363d] rounded-lg p-3 overflow-y-auto space-y-3">
+                            <!-- Tasks injected here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
     <footer class="max-w-6xl mx-auto px-8 py-10 border-t border-[#30363d] flex justify-between items-center text-xs text-[#8b949e]">
-        <div>© 2026 Eurotel Transformation Program | Powered by LotusFlare</div>
+        <div>© 2026 Eurotel Transformation Program | Shared Architecture</div>
         <div class="flex gap-6">
-            <span class="hover:text-[#58a6ff] cursor-pointer">Terms</span>
-            <span class="hover:text-[#58a6ff] cursor-pointer">Privacy</span>
             <span class="hover:text-[#58a6ff] cursor-pointer">Security</span>
-            <span class="hover:text-[#58a6ff] cursor-pointer">API Docs</span>
+            <span class="hover:text-[#58a6ff] cursor-pointer">Compliance</span>
+            <span class="hover:text-[#58a6ff] cursor-pointer">v1.4.2</span>
         </div>
     </footer>
 
+    <script>
+        // Tab Management
+        function switchTab(tabId) {
+            // Update Tab Buttons
+            ['simulations', 'documents', 'jira'].forEach(id => {
+                const btn = document.getElementById('tab-' + id);
+                if (id === tabId) {
+                    btn.classList.add('tab-active');
+                    btn.classList.remove('text-[#8b949e]');
+                } else {
+                    btn.classList.remove('tab-active');
+                    btn.classList.add('text-[#8b949e]');
+                }
+            });
+
+            // Update Tab Content
+            document.querySelectorAll('.tab-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            document.getElementById('content-' + tabId).classList.add('active');
+        }
+
+        // Project Management Logic
+        let tasks = [
+            { id: 1, title: 'Finalize TMF 635 Data Mapping', assignee: 'Chief Architect', status: 'doing' },
+            { id: 2, title: 'PII Tokenization Audit (GDPR)', assignee: 'Eurotel DPO', status: 'todo' },
+            { id: 3, title: 'Initialize MVP Repo', assignee: 'LotusFlare Engineering', status: 'done' }
+        ];
+
+        function addTask() {
+            const title = document.getElementById('task-name').value;
+            const assignee = document.getElementById('task-assignee').value;
+            if (!title) return;
+
+            const newTask = {
+                id: Date.now(),
+                title: title,
+                assignee: assignee,
+                status: 'todo'
+            };
+
+            tasks.push(newTask);
+            document.getElementById('task-name').value = '';
+            renderBoard();
+        }
+
+        function moveTask(id, nextStatus) {
+            tasks = tasks.map(t => t.id === id ? { ...t, status: nextStatus } : t);
+            renderBoard();
+        }
+
+        function renderBoard() {
+            const cols = {
+                todo: document.getElementById('col-todo'),
+                doing: document.getElementById('col-doing'),
+                done: document.getElementById('col-done')
+            };
+
+            // Clear columns
+            Object.values(cols).forEach(col => col.innerHTML = '');
+
+            // Populate columns
+            tasks.forEach(task => {
+                const taskEl = document.createElement('div');
+                taskEl.className = 'github-card bg-[#0d1117] p-3 shadow-sm border-l-4 ' + 
+                    (task.status === 'todo' ? 'border-slate-600' : task.status === 'doing' ? 'border-blue-500' : 'border-green-500');
+                
+                let controls = '';
+                if (task.status === 'todo') controls = `<button onclick="moveTask(${task.id}, 'doing')" class="text-[10px] text-blue-400 font-bold hover:underline">Start &rarr;</button>`;
+                if (task.status === 'doing') controls = `<button onclick="moveTask(${task.id}, 'done')" class="text-[10px] text-green-400 font-bold hover:underline">Finish &rarr;</button>`;
+
+                taskEl.innerHTML = `
+                    <p class="text-xs font-semibold text-white mb-2">${task.title}</p>
+                    <div class="flex justify-between items-center mt-3">
+                        <div class="flex items-center gap-2">
+                            <div class="w-4 h-4 rounded-full bg-slate-700 text-[8px] flex items-center justify-center font-bold text-slate-300">
+                                ${task.assignee.charAt(0)}
+                            </div>
+                            <span class="text-[9px] text-slate-400">${task.assignee}</span>
+                        </div>
+                        ${controls}
+                    </div>
+                `;
+                cols[task.status].appendChild(taskEl);
+            });
+
+            // Update Counts
+            document.getElementById('count-todo').innerText = tasks.filter(t => t.status === 'todo').length;
+            document.getElementById('count-doing').innerText = tasks.filter(t => t.status === 'doing').length;
+            document.getElementById('count-done').innerText = tasks.filter(t => t.status === 'done').length;
+        }
+
+        // Initialize board
+        window.onload = renderBoard;
+    </script>
 </body>
 </html>
